@@ -199,8 +199,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MonitoringServices\IISWebAppMonitor.cs" />
+    <Compile Include="MonitoringServices\IIS\IISWebAppMonitor.cs" />
     <Compile Include="MonitoringServices\IMonitoringService.cs" />
+    <Compile Include="MonitoringServices\IIS\IServerManagerWrapper.cs" />
+    <Compile Include="MonitoringServices\Windows\IServiceControllerWrapper.cs" />
+    <Compile Include="MonitoringServices\IIS\ServerManagerWrapper.cs" />
+    <Compile Include="MonitoringServices\IIS\SiteCollectionWrapper.cs" />
+    <Compile Include="MonitoringServices\IIS\SiteWrapper.cs" />
     <Compile Include="MonService.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -215,9 +220,9 @@
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MonitoringServices\ServiceControllerWrapper.cs" />
+    <Compile Include="MonitoringServices\Windows\ServiceControllerWrapper.cs" />
     <Compile Include="TaskContainer.cs" />
-    <Compile Include="MonitoringServices\WindowsServiceMonitor.cs" />
+    <Compile Include="MonitoringServices\Windows\WindowsServiceMonitor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

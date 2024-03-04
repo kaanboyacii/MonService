@@ -278,7 +278,6 @@
     <Compile Include="MonServiceTests\IISWebAppMonitorTest.cs" />
     <Compile Include="MonServiceTests\ServiceControllerWrapperTests.cs" />
     <Compile Include="MonServiceTests\WindowsServiceMonitorTest.cs" />
-    <Compile Include="SettingsApplicationTests\SettingsFormTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -306,7 +305,9 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="SettingsApplicationTests\" />
+  </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\MSTest.Analyzers.3.2.2\analyzers\dotnet\cs\MSTest.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\packages\MSTest.Analyzers.3.2.2\analyzers\dotnet\cs\MSTest.Analyzers.dll" />

@@ -4,63 +4,6 @@ using Logger;
 
 namespace MonService
 {
-    public interface IServerManagerWrapper
-    {
-        ISiteCollectionWrapper Sites { get; }
-    }
-
-    public interface ISiteCollectionWrapper
-    {
-        ISiteWrapper this[string siteName] { get; }
-    }
-
-    public interface ISiteWrapper
-    {
-        ObjectState State { get; }
-        void Start();
-    }
-
-    public class ServerManagerWrapper : IServerManagerWrapper
-    {
-        private ServerManager _serverManager;
-
-        public ServerManagerWrapper(ServerManager serverManager)
-        {
-            _serverManager = serverManager;
-        }
-
-        public ISiteCollectionWrapper Sites => new SiteCollectionWrapper(_serverManager.Sites);
-    }
-
-    public class SiteCollectionWrapper : ISiteCollectionWrapper
-    {
-        private SiteCollection _siteCollection;
-
-        public SiteCollectionWrapper(SiteCollection siteCollection)
-        {
-            _siteCollection = siteCollection;
-        }
-
-        public ISiteWrapper this[string siteName] => new SiteWrapper(_siteCollection[siteName]);
-    }
-
-    public class SiteWrapper : ISiteWrapper
-    {
-        private Site _site;
-
-        public SiteWrapper(Site site)
-        {
-            _site = site;
-        }
-
-        public ObjectState State => _site.State;
-
-        public void Start()
-        {
-            _site.Start();
-        }
-    }
-
     public class IISWebAppMonitor : IMonitoringService
     {
         private string _siteName;

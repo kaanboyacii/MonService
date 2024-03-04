@@ -29,7 +29,6 @@ namespace MonService
                 PerformChecks();
                 firstRun = false;
             }
-
             timer.Start();
         }
 

@@ -9,8 +9,6 @@ namespace SettingsApplication
     public partial class SettingsForm : Form
     {
         public SettingsManager settingsManager;
-        //public LogLevel currentLogLevel;
-        //public int currentFrequency;
         public LogLevel currentLogLevel { get; set; }
         public int currentFrequency { get; set; }
 
