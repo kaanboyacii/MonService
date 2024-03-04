@@ -30,5 +30,6 @@ namespace UnitTests.MonServiceTests
             Assert.IsNotNull(service.Settings);
             Assert.IsTrue(service.Settings.ServicesToMonitor.Count > 0);
         }
+
     }
 }

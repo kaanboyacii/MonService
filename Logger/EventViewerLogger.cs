@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
-using System.IO;
-using System.Xml.Serialization;
 using DTOs;
-
 
 namespace Logger
 {
@@ -15,17 +12,7 @@ namespace Logger
         public EventViewerLogger(string sourceName, EventLogEntryType? defaultLogLevel = null)
         {
             this.sourceName = sourceName;
-
-            // Eğer defaultLogLevel parametresi belirtilmemişse veya null ise, settings.xml'den log seviyesini yükle
-            if (defaultLogLevel == null)
-            {
-                LoadDefaultLogLevel();
-            }
-            else
-            {
-                this.defaultLogLevel = defaultLogLevel.Value;
-            }
-
+            this.defaultLogLevel = defaultLogLevel ?? LoadDefaultLogLevel();
             CreateEventSourceIfNotExists();
         }
 
@@ -47,17 +34,17 @@ namespace Logger
             defaultLogLevel = logType;
         }
 
-        private void LoadDefaultLogLevel()
+        private EventLogEntryType LoadDefaultLogLevel()
         {
             try
             {
                 MonitoringSettingsDTO settings = MonitoringSettingsSerializer.LoadFromXml();
-                defaultLogLevel = GetEventLogEntryType(settings.LogLevel.ToString());
+                return GetEventLogEntryType(settings.LogLevel.ToString());
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error occurred while loading log level from settings.xml: " + ex.Message);
-                defaultLogLevel = EventLogEntryType.Error;
+                return EventLogEntryType.Error;
             }
         }
 
@@ -71,17 +58,7 @@ namespace Logger
 
         private EventLogEntryType GetEventLogEntryType(string logLevel)
         {
-            switch (logLevel.ToLower())
-            {
-                case "information":
-                    return EventLogEntryType.Information;
-                case "warning":
-                    return EventLogEntryType.Warning;
-                case "error":
-                    return EventLogEntryType.Error;
-                default:
-                    return EventLogEntryType.Information;
-            }
+            return Enum.TryParse(logLevel, true, out EventLogEntryType result) ? result : EventLogEntryType.Information;
         }
     }
 }

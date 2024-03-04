@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ServiceProcess;
 using Logger;
 using DTOs;
+using Microsoft.Web.Administration;
 
 namespace MonService
 {
@@ -44,7 +45,6 @@ namespace MonService
                 Console.WriteLine("Error loading settings: " + ex.Message);
             }
         }
-
         public void ConfigureService()
         {
             List<IMonitoringService> servicesToCheck = new List<IMonitoringService>();
@@ -54,10 +54,10 @@ namespace MonService
                 switch (service.ServiceType.ToLower())
                 {
                     case "windowsservice":
-                        monitoringService = new WindowsServiceMonitor(service.ServiceName, logger);
+                        monitoringService = new WindowsServiceMonitor(service.ServiceName, new ServiceControllerWrapper(service.ServiceName), logger);
                         break;
                     case "iiswebapp":
-                        monitoringService = new IISWebAppMonitor(service.ServiceName, logger);
+                        monitoringService = new IISWebAppMonitor(service.ServiceName, new ServerManagerWrapper(new ServerManager()), logger);
                         break;
                     default:
                         logger.Log($"Unknown service type: {service.ServiceType}");
@@ -69,6 +69,7 @@ namespace MonService
 
             TaskContainer = new TaskContainer(servicesToCheck, Settings.CheckIntervalSeconds, logger);
         }
+
 
         public void OnDebug()
         {
