@@ -9,7 +9,7 @@ namespace MockWindowsService
     public partial class MockWindowsService : ServiceBase
     {
         private FileSystemWatcher watcher;
-        private const string EventLogSource = "MockServiceSource";
+        private const string EventLogSource = "MockWindowsService";
         private ILogger logger;
 
         public MockWindowsService()
